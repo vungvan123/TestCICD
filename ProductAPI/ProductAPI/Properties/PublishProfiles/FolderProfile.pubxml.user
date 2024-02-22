@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Other\CodeEx\CICD\ProductAPI\ProductAPI\bin\Release\net5.0\publish\</_PublishTargetUrl>
+    <History>True|2024-02-22T08:23:21.6552324Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
