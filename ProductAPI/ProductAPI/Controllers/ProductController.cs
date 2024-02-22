@@ -15,7 +15,8 @@ namespace ProductAPI.Controllers
         {
             new Product() { Id = 1, Name = "Bánh mì" },
             new Product() { Id = 2, Name = "Kẹo lạc" },
-            new Product() { Id = 3, Name = "Cánh gà chiên mắm" }
+            new Product() { Id = 3, Name = "Cánh gà chiên mắm" },
+            new Product() { Id = 4, Name = "Tôm chiên" },
         };
 
         [HttpGet]
