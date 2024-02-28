@@ -1,21 +1,50 @@
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 sh 'echo "Hello task1"'
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 echo 'Run some unit tests'
+//                 sh 'echo "Run an integration test"'
+//             }
+//         }
+//         stage('Deploy') {
+//             steps {
+//                 sh 'echo "Deploy application"'
+//             }
+//         }
+//     }
+// }
+
 pipeline {
     agent any
+    
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'echo "Hello task1"'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Build and Push Docker Image') {
             steps {
-                echo 'Run some unit tests'
-                sh 'echo "Run an integration test"'
+                script {
+                    sh "docker-compose up -d"
+                }
             }
         }
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploy application"'
-            }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded! Perform additional tasks...'
+        }
+        failure {
+            echo 'Pipeline failed! Notify stakeholders...'
         }
     }
 }

@@ -1,0 +1,11 @@
+version: '2.24.5'
+services:
+ backend:
+  container_name: hihi.productapi
+  build:
+   context: ./ProductAPI/ProductAPI/
+   dockerfile:  "Dockerfile"
+  restart: always
+  image: hihi.productapi
+  ports:
+   - "8081:80"
