@@ -23,6 +23,9 @@
 pipeline {
     agent any
     
+    environment{
+        PATH_PROJECT = '/home/projects/cicd/'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -30,20 +33,24 @@ pipeline {
                 deleteDir()
 
                 // Clone the GitHub repository
-                checkout scm
-                echo "Checked out code to: ${env.WORKSPACE}"
+                // checkout scm
+                sh "sudo cp -r . $PATH_PROJECT"
+                echo "Checked out code to: $PATH_PROJECT"
             }
         }
 
         stage('Build and Run Docker Containers') {
             steps {
-                script {
-                    // Assuming your .NET API solution is in the 'src' directory
-                    dir('/var/jenkins_home/workspace/CICDWithJenkinsfile') {
-                        // Build and run Docker containers using docker-compose.yml
-                        sh 'docker-compose -f ../docker-compose.yml up -d'
-                    }
-                }
+                sh " cd $PATH_PROJECT \
+                && docker-compose up -d"
+                // script {
+                    
+                //     // Assuming your .NET API solution is in the 'src' directory
+                //     dir('/var/jenkins_home/workspace/CICDWithJenkinsfile') {
+                //         // Build and run Docker containers using docker-compose.yml
+                //         sh 'docker-compose -f -d'
+                //     }
+                // }
             }
         }
     }
