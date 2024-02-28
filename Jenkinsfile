@@ -26,27 +26,34 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Clean workspace before cloning
+                deleteDir()
+
+                // Clone the GitHub repository
                 checkout scm
                 echo "Checked out code to: ${env.WORKSPACE}"
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build and Run Docker Containers') {
             steps {
-                // dir("${env.WORKSPACE}") {
-                //     sh 'docker-compose up -d'
-                // }
-                sh 'docker-compose up -d'
+                script {
+                    // Assuming your .NET API solution is in the 'src' directory
+                    dir('/var/jenkins_home/workspace/CICDWithJenkinsfile') {
+                        // Build and run Docker containers using docker-compose.yml
+                        sh 'docker-compose -f ../docker-compose.yml up -d'
+                    }
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline succeeded! Perform additional tasks...'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed! Notify stakeholders...'
+            echo 'Pipeline failed! Check logs for details.'
         }
     }
 }
