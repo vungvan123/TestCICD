@@ -1,31 +1,12 @@
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Build') {
-//             steps {
-//                 sh 'echo "Hello task1"'
-//             }
-//         }
-//         stage('Test') {
-//             steps {
-//                 echo 'Run some unit tests'
-//                 sh 'echo "Run an integration test"'
-//             }
-//         }
-//         stage('Deploy') {
-//             steps {
-//                 sh 'echo "Deploy application"'
-//             }
-//         }
-//     }
-// }
-
 pipeline {
     agent any
     
-    environment{
-        PATH_PROJECT = '/home/projects/cicd/'
+    environment {
+        // Set environment variables if needed
+        DOCKER_COMPOSE_VERSION = '1.29.2' // Specify the version of Docker Compose you want to use
+        COMPOSE_FILE_PATH = '/var/jenkins_home/workspace/CICDWithJenkinsfile/docker-compose.yml' // Path to your docker-compose.yml file
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -39,21 +20,35 @@ pipeline {
             }
         }
 
-        stage('Build and Run Docker Containers') {
+        stage('Setup Environment') {
             steps {
-                // sh " cd $PATH_PROJECT \
-                // && docker-compose up -d"
-                // script {
-                    
-                //     // Assuming your .NET API solution is in the 'src' directory
-                //     dir('/var/jenkins_home/workspace/CICDWithJenkinsfile') {
-                //         // Build and run Docker containers using docker-compose.yml
-                //         sh 'docker-compose -f -d'
-                //     }
-                // }
                 script {
-                    sh "/usr/local/bin/docker-compose --version"
-                    sh "docker-compose up -d"
+                    // Install Docker Compose
+                    sh "curl -L https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+                    sh 'chmod +x /usr/local/bin/docker-compose'
+
+                    // Print Docker Compose version
+                    sh 'docker-compose --version'
+                }
+            }
+        }
+
+        stage('Build and Run') {
+            steps {
+                script {
+                    // Run Docker Compose
+                    sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
+                }
+            }
+        }
+
+        // Add more stages as needed
+
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Stop and remove Docker Compose services
+                    sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
                 }
             }
         }
