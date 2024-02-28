@@ -48,9 +48,11 @@ pipeline {
                 //     // Assuming your .NET API solution is in the 'src' directory
                 //     dir('/var/jenkins_home/workspace/CICDWithJenkinsfile') {
                 //         // Build and run Docker containers using docker-compose.yml
-                         sh 'docker-compose -f -d'
+                //         sh 'docker-compose -f -d'
                 //     }
                 // }
+
+                sh 'docker-compose -f -d'
             }
         }
     }
