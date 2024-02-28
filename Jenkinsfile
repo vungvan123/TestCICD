@@ -33,9 +33,8 @@ pipeline {
 
         stage('Build and Push Docker Image') {
             steps {
-                script {
-                    sh "cd ${env.WORKSPACE}"
-                    sh "docker-compose up -d"
+                dir("${env.WORKSPACE}/CICD") {
+                    sh 'docker-compose up -d'
                 }
             }
         }
