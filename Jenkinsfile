@@ -34,6 +34,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
+                    sh "cd ${env.WORKSPACE}"
                     sh "docker-compose up -d"
                 }
             }
