@@ -51,9 +51,10 @@ pipeline {
                 //         sh 'docker-compose -f -d'
                 //     }
                 // }
-
+script {
                 sh 'docker-compose --version'
                 sh 'docker-compose up -d'
+                }
             }
         }
     }
