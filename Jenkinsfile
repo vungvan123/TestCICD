@@ -52,7 +52,7 @@ pipeline {
                 //     }
                 // }
                 script {
-                    sh "docker-compose --version"
+                    sh "/usr/local/bin/docker-compose --version"
                     sh "docker-compose up -d"
                 }
             }
