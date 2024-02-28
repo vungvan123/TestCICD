@@ -27,6 +27,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo "Checked out code to: ${env.WORKSPACE}/CICD"
             }
         }
 
