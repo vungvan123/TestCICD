@@ -52,7 +52,7 @@ pipeline {
                 //     }
                 // }
 
-                sh 'docker-compose -f -d'
+                sh 'docker-compose up -d'
             }
         }
     }
