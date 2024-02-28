@@ -21,14 +21,11 @@ pipeline {
         }
 
         stage('Setup Environment') {
-            tools {
-                docker-compose 'docker-compose 1.29.2'//${DOCKER_COMPOSE_VERSION}"
-            }
             steps {
                 script {
                     // Install Docker Compose
-                    //sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o /usr/local/bin/docker-compose"
-                    //sh 'chmod +x /usr/local/bin/docker-compose'
+                    sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o /usr/local/bin/docker-compose"
+                    sh 'chmod +x /usr/local/bin/docker-compose'
 
                     // Print Docker Compose version
                     sh 'docker-compose --version'
@@ -36,28 +33,25 @@ pipeline {
             }
         }
 
-        // stage('Build and Run') {
-        //     tools {
-        //         docker-compose 'docker-compose 1.29.2'
-        //     }
-        //     steps {
-        //         script {
-        //             // Run Docker Compose
-        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
-        //         }
-        //     }
-        // }
+        stage('Build and Run') {
+            steps {
+                script {
+                    // Run Docker Compose
+                    sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
+                }
+            }
+        }
 
-        // // Add more stages as needed
+        // Add more stages as needed
 
-        // stage('Cleanup') {
-        //     steps {
-        //         script {
-        //             // Stop and remove Docker Compose services
-        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
-        //         }
-        //     }
-        // }
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Stop and remove Docker Compose services
+                    sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
+                }
+            }
+        }
     }
 
     post {
