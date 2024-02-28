@@ -23,6 +23,10 @@
 pipeline {
     agent any
     
+    environment {
+        DOCKER_COMPOSE_VERSION = '2.24.5'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -31,10 +35,15 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build and Run Docker Compose') {
             steps {
-                dir("${env.WORKSPACE}/CICD") {
-                    sh 'docker-compose up -d'
+                script {
+                    // Install Docker Compose
+                    sh "sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+                    sh "sudo chmod +x /usr/local/bin/docker-compose"
+
+                    // Run Docker Compose
+                    sh "sudo docker-compose up -d"
                 }
             }
         }
