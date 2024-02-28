@@ -25,8 +25,8 @@ pipeline {
             steps {
                 script {
                     // Install Docker Compose
-                    sh "sudo curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
-                    sh "sudo chmod +x ${DOCKER_COMPOSE_PATH}"
+                    sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
+                    //sh "chmod +x ${DOCKER_COMPOSE_PATH}"
 
                     // Print Docker Compose version
                     sh 'docker-compose --version'
@@ -34,25 +34,25 @@ pipeline {
             }
         }
 
-        stage('Build and Run') {
-            steps {
-                script {
-                    // Run Docker Compose
-                    sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
-                }
-            }
-        }
+        // stage('Build and Run') {
+        //     steps {
+        //         script {
+        //             // Run Docker Compose
+        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
+        //         }
+        //     }
+        // }
 
-        // Add more stages as needed
+        // // Add more stages as needed
 
-        stage('Cleanup') {
-            steps {
-                script {
-                    // Stop and remove Docker Compose services
-                    sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
-                }
-            }
-        }
+        // stage('Cleanup') {
+        //     steps {
+        //         script {
+        //             // Stop and remove Docker Compose services
+        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
+        //         }
+        //     }
+        // }
     }
 
     post {
