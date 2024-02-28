@@ -5,6 +5,7 @@ pipeline {
         // Set environment variables if needed
         DOCKER_COMPOSE_VERSION = '1.29.2' // Specify the version of Docker Compose you want to use
         COMPOSE_FILE_PATH = '/var/jenkins_home/workspace/CICDWithJenkinsfile/docker-compose.yml' // Path to your docker-compose.yml file
+        DOCKER_COMPOSE_PATH = '/usr/local/bin/docker-compose'
     }
 
     stages {
@@ -24,8 +25,8 @@ pipeline {
             steps {
                 script {
                     // Install Docker Compose
-                    sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o /usr/local/bin/docker-compose"
-                    sh 'chmod +x /usr/local/bin/docker-compose'
+                    sh "sudo curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
+                    sh "sudo chmod +x ${DOCKER_COMPOSE_PATH}"
 
                     // Print Docker Compose version
                     sh 'docker-compose --version'
