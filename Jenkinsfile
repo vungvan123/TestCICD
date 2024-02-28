@@ -33,9 +33,10 @@ pipeline {
 
         stage('Build and Push Docker Image') {
             steps {
-                dir("${env.WORKSPACE}") {
-                    sh 'docker-compose up -d'
-                }
+                // dir("${env.WORKSPACE}") {
+                //     sh 'docker-compose up -d'
+                // }
+                sh 'docker-compose up -d'
             }
         }
     }
