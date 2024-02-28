@@ -22,7 +22,7 @@ pipeline {
 
         stage('Setup Environment') {
             tools {
-                dockerCompose "docker-compose-${DOCKER_COMPOSE_VERSION}"
+                docker-compose "docker-compose-${DOCKER_COMPOSE_VERSION}"
             }
             steps {
                 script {
