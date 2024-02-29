@@ -16,12 +16,10 @@ pipeline {
             }
         }
 
-        stage('Stop and remove container + image old') {
+        stage('Cleanup') {
             steps {
                 script {
-                    // sh "docker stop ${CONTAINER_NAME}"
-                    // sh "docker container rm ${CONTAINER_NAME}"
-                    // sh "docker image rm ${CONTAINER_NAME}"
+                    //Stop and remove container + image old
                     sh "docker-compose down"
                 }
             }
@@ -35,14 +33,5 @@ pipeline {
                 }
             }
         }
-
-        // stage('Cleanup') {
-        //     steps {
-        //         script {
-        //             // Stop and remove Docker Compose services
-        //             sh "docker-compose down"
-        //         }
-        //     }
-        // }
     }
 }
