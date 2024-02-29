@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        CONTAINER_NAME = 'hihi.productapi'
+        NAME_BACKEND = 'hihi.productapi'
     }
 
     stages {
@@ -20,7 +20,8 @@ pipeline {
             steps {
                 script {
                     //Stop and remove container + image old
-                    sh "docker-compose down"
+                    //sh "docker-compose down"
+                    sh "docker rm -f ${NAME_BACKEND}"
                 }
             }
         }
