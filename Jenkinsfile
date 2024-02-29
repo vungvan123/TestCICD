@@ -2,10 +2,7 @@ pipeline {
     agent any
     
     environment {
-        // Set environment variables if needed
-        DOCKER_COMPOSE_VERSION = '1.29.2' // Specify the version of Docker Compose you want to use
-        COMPOSE_FILE_PATH = '/var/jenkins_home/workspace/CICDWithJenkinsfile/docker-compose.yml' // Path to your docker-compose.yml file
-        DOCKER_COMPOSE_PATH = '/usr/local/bin/docker-compose'
+        CONTAINER_NAME = 'hihi.productapi'
     }
 
     stages {
@@ -16,23 +13,31 @@ pipeline {
 
                 // Clone the GitHub repository
                 checkout scm
-                // sh "sudo cp -r . $PATH_PROJECT"
-                // echo "Checked out code to: $PATH_PROJECT"
             }
         }
 
-        stage('Setup Environment') {
+        // stage('Setup Environment') {
+        //     steps {
+        //         script {
+        //             // Install Docker Compose
+        //             // sh "usermod -aG docker vungtv"
+        //             // sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
+        //             // sh "chmod +x ${DOCKER_COMPOSE_PATH}"
+
+        //             // Print Docker Compose version
+        //             sh 'docker --version'
+        //             sh 'docker-compose --version'
+        //             sh 'docker-compose --version'
+        //         }
+        //     }
+        // }
+
+        stage('Stop and remove container + image old') {
             steps {
                 script {
-                    // Install Docker Compose
-                    // sh "usermod -aG docker vungtv"
-                    // sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
-                    // sh "chmod +x ${DOCKER_COMPOSE_PATH}"
-
-                    // Print Docker Compose version
-                    sh 'docker --version'
-                    sh 'docker-compose --version'
-                    sh 'docker-compose --version'
+                    sh "docker strop ${CONTAINER_NAME}"
+                    sh "docker container rm ${CONTAINER_NAME}"
+                    sh "docker image rm ${CONTAINER_NAME}"
                 }
             }
         }
