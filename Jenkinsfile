@@ -25,6 +25,7 @@ pipeline {
             steps {
                 script {
                     // Install Docker Compose
+                    sh "usermod -aG docker vungtv"
                     sh "curl -L https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m) -o ${DOCKER_COMPOSE_PATH}"
                     sh "chmod +x ${DOCKER_COMPOSE_PATH}"
 
