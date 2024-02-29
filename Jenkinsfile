@@ -35,7 +35,7 @@ pipeline {
         stage('Stop and remove container + image old') {
             steps {
                 script {
-                    sh "docker strop ${CONTAINER_NAME}"
+                    sh "docker stop ${CONTAINER_NAME}"
                     sh "docker container rm ${CONTAINER_NAME}"
                     sh "docker image rm ${CONTAINER_NAME}"
                 }
