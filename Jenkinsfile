@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clean workspace before cloning
-                deleteDir()
+                //deleteDir()
 
                 // Clone the GitHub repository
                 checkout scm
