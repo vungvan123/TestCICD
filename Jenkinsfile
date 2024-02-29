@@ -36,22 +36,22 @@ pipeline {
             }
         }
 
-        stage('Build and Run') {
-            steps {
-                script {
-                    // Run Docker Compose
-                    sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
-                }
-            }
-        }
+        // stage('Build and Run') {
+        //     steps {
+        //         script {
+        //             // Run Docker Compose
+        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} up -d"
+        //         }
+        //     }
+        // }
 
-        stage('Cleanup') {
-            steps {
-                script {
-                    // Stop and remove Docker Compose services
-                    sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
-                }
-            }
-        }
+        // stage('Cleanup') {
+        //     steps {
+        //         script {
+        //             // Stop and remove Docker Compose services
+        //             sh "docker-compose -f ${COMPOSE_FILE_PATH} down"
+        //         }
+        //     }
+        // }
     }
 }
