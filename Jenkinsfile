@@ -1,16 +1,9 @@
 pipeline {
     agent any
     
-    environment {
-        NAME_BACKEND = 'hihi.productapi'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Clean workspace before cloning
-                //deleteDir()
-
                 // Clone the GitHub repository
                 checkout scm
             }
@@ -19,7 +12,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    //Stop and remove container + image old
+                    //Stop and remove container
                     sh "docker-compose down"
                 }
             }
