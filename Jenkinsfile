@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set environment variables if needed
         DOCKER_COMPOSE_VERSION = '1.29.2'
-        COMPOSE_FILE_PATH = '/var/jenkins_home/workspace/CICDWithJenkinsfile/docker-compose.yml'
+        COMPOSE_FILE_PATH = '/var/jenkins_home/workspace/CICDWithJenkinsfile'///docker-compose.yml'
         DOCKER_COMPOSE_PATH = '/usr/local/bin/docker-compose'
     }
 
@@ -29,7 +29,9 @@ pipeline {
                     //sh "chmod +x ${DOCKER_COMPOSE_PATH}"
 
                     // Print Docker Compose version
-                    sh 'docker-compose --version'
+                    // sh 'cd docker-compose --version'
+                    sh "cd ${COMPOSE_FILE_PATH} \
+                    && docker version"
                 }
             }
         }
