@@ -20,8 +20,8 @@ pipeline {
             steps {
                 script {
                     //Stop and remove container + image old
-                    //sh "docker-compose down"
-                    sh "docker-compose up -d"
+                    sh "docker-compose down"
+                    //sh "docker-compose up -d"
                     //sh "docker rm -f ${NAME_BACKEND}"
                 }
             }
