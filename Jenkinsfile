@@ -30,6 +30,7 @@ pipeline {
                     // sh "chmod +x ${DOCKER_COMPOSE_PATH}"
 
                     // Print Docker Compose version
+                    sh 'docker --version'
                     sh 'docker-compose --version'
                 }
             }
