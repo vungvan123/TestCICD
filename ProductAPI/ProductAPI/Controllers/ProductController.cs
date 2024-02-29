@@ -13,8 +13,8 @@ namespace ProductAPI.Controllers
             new Product() { Id = 2, Name = "Kẹo lạc" },
             new Product() { Id = 3, Name = "Cánh gà chiên mắm" },
             new Product() { Id = 4, Name = "Tôm chiên xù" },
-            //new Product() { Id = 5, Name = "Đùi gà sốt me" },
-            //new Product() { Id = 6, Name = "XXXX" },
+            new Product() { Id = 5, Name = "Đùi gà sốt me" },
+            new Product() { Id = 6, Name = "XXXX" },
             //new Product() { Id = 7, Name = "XYZ" }
         };
 
